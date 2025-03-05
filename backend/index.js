@@ -8,22 +8,31 @@ const server = http.createServer(app)
 const io = new Server(server, {
     cors: {
         origin: 'http://localhost:5173/',
-        methods: ['GET', 'POST']
-    }
+        methods: ['GET', 'POST'],
+    },
 })
 app.use(cors())
 app.use(express.json()) // for parsing application/json
 
+let users = {}
+
 io.on('connection', (socket) => {
     console.log('a user connected', socket.id)
 
+    socket.on("setUserName", (username)=>{
+        users[socket.id]= username
+        console.log("users: ", users);
+    })
+
     socket.on("sendMessage", (message) => {
         console.log('message: ', message);
-        io.emit("recieved Message", message)  
+        const username = users[socket.id] || 'Anonymous'
+        io.emit("recievedMessage", {username, message})  
     })
 
     socket.on('disconnected', ()=>{
         console.log('user disconnected');
+        delete users[socket.id]
     })
 })
 
