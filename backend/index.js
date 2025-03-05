@@ -18,9 +18,8 @@ io.on('connection', (socket) => {
     console.log('a user connected', socket.id)
 
     socket.on("sendMessage", (message) => {
-        console.log('message', message);
-        io.emit("recieved Message", message)
-        
+        console.log('message: ', message);
+        io.emit("recieved Message", message)  
     })
 
     socket.on('disconnected', ()=>{
@@ -28,6 +27,6 @@ io.on('connection', (socket) => {
     })
 })
 
-server.listen(300, () => {
+server.listen(3000, () => {
     console.log('listening on *:3000');
 })

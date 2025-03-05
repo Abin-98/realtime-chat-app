@@ -12,8 +12,10 @@ function App() {
   const [messages, setMessages] = useState([])
   const [message, setMessage] = useState('')
 
+  console.log(messages);
+  
   useEffect(()=>{
-    socket.on('message', (data) => {
+    socket.on('recieve message', (data) => {
       setMessages([...messages, data])
     })
   }, [messages])
@@ -37,7 +39,7 @@ function App() {
       })
      }
       </div>
-      <input type="text" value={message} onChange={(e)=>{setMessage(e.target.value)}} className='w-1/2 m-5 border-blue-200 p-2 rounded' placeholder='Type your message..' />
+      <input type="text" value={message} onChange={(e)=>{ setMessage(e.target.value) }} className='w-1/2 m-5 border-blue-200 p-2 rounded' placeholder='Type your message..' />
       <button className='bg-blue-500 text-white p-2 rounded-lg pointer' onClick={sendMessage}>Send</button>
     </div>
   )
