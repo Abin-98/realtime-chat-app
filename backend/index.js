@@ -27,15 +27,15 @@ io.on('connection', (socket) => {
     socket.on("sendMessage", (message) => {
         console.log('message: ', message);
         const username = users[socket.id] || 'Anonymous'
-        io.emit("recievedMessage", {username, message})  
+        io.emit("recieveMessage", {username, message})  
     })
 
     socket.on('disconnected', ()=>{
         console.log('user disconnected');
         delete users[socket.id]
     })
-})
+});
 
 server.listen(3000, () => {
     console.log('listening on *:3000');
-})
+});

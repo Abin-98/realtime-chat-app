@@ -11,7 +11,7 @@ const socket = io("http://localhost:3000", {
 function App() {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
-  const [userName, setUserName] = useState("");
+  const [username, setUsername] = useState("");
   const [isUsernameSet, setIsUsernameSet] = useState(false);
 
   console.log(messages);
@@ -39,10 +39,9 @@ function App() {
   };
 
   const setUser = () => {
-    if (userName.trim()) {
-      socket.emit("setUserName", userName);
+    if (username.trim()) {
+      socket.emit("setUserName", username)
       setIsUsernameSet(true);
-      setMessage("");
     }
   };
 
@@ -53,9 +52,9 @@ function App() {
         <div className="w-96 m-auto">
           <input
             type="text"
-            value={userName}
+            value={username}
             onChange={(e) => {
-              setUserName(e.target.value);
+              setUsername(e.target.value);
             }}
             className="w-1/2 m-5 border border-blue-200 p-2 rounded"
             placeholder="Enter your user name.."
@@ -74,7 +73,7 @@ function App() {
               messages.map((msg, index) => {
                 return (
                   <p key={index} className="bg-blue-200 p-5 rounded m-2 w-fit">
-                    <strong>{msg.userName}: </strong>{msg.message}
+                    <strong>{msg.username}: </strong>{msg.message}
                   </p>
                 );
               })}
